@@ -1,0 +1,412 @@
+/* src/Annonces.css */
+/* Container principal */
+.annonces-container {
+  display: flex;
+  gap: 20px;
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  background: #f9f9fb;
+}
+
+/* Sidebar améliorée */
+.sidebar {
+  width: 220px;
+  background: linear-gradient(145deg, #ffffff, #f5f7ff);
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  height: fit-content;
+  position: sticky;
+  top: 20px;
+}
+
+/* Titre de la sidebar */
+.sidebar-title {
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+  color: #333;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #e0e3ff;
+  font-weight: 600;
+}
+
+/* Sections de filtre */
+.filter-section {
+  margin-bottom: 20px;
+}
+
+.filter-section h4 {
+  color: #555;
+  font-size: 1rem;
+  margin-bottom: 15px;
+  font-weight: 500;
+}
+
+/* Liste de filtres avec effets de survol */
+.filter-list li {
+  padding: 10px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.filter-list li:hover {
+  background: rgba(108, 123, 255, 0.05);
+  transform: translateX(5px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.filter-list label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  color: #555;
+}
+
+/* Style des boutons radio */
+.filter-list input[type="radio"] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border: 2px solid #d1d5f0;
+  border-radius: 50%;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.filter-list input[type="radio"]:checked {
+  border-color: #6c7bff;
+  background: #6c7bff;
+  box-shadow: 0 0 0 2px rgba(108, 123, 255, 0.2);
+}
+
+/* Barre de recherche de localisation */
+.search-location {
+  position: relative;
+}
+
+.search-location input {
+  width: 100%;
+  padding: 12px 35px 12px 15px;
+  border: 1px solid #e0e3ff;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  background: rgba(255, 255, 255, 0.8);
+}
+
+.search-location input:focus {
+  border-color: #8e9dff;
+  box-shadow: 0 0 10px rgba(142, 157, 255, 0.1);
+}
+
+.search-location i {
+  color: #8e9dff;
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1rem;
+}
+
+/* Grille des annonces */
+.annonces {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 15px;
+}
+
+/* Section des catégories */
+.categories {
+  margin-bottom: 20px;
+  padding: 15px;
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+/* Titre des catégories */
+.categories h3 {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 10px;
+  position: relative;
+}
+
+/* Ligne décorative sous le titre */
+.categories h3::after {
+  content: "";
+  position: absolute;
+  bottom: -3px;
+  left: 0;
+  width: 40px;
+  height: 2px;
+  background: #6c7bff;
+}
+
+/* Conteneur des tags */
+.category-tags {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+/* Style des tags */
+.tag {
+  background: #e0e3ff;
+  color: #4a4e6d;
+  padding: 8px 15px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+/* Effet au survol */
+.tag:hover {
+  background: #6c7bff;
+  color: white;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(108, 123, 255, 0.3);
+}
+
+/* Cartes d'annonces avec effets améliorés */
+.annonce-card {
+  background: #ffffff;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+  position: relative;
+  cursor: pointer;
+  animation: fadeInUp 0.5s ease;
+}
+
+.annonce-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, rgba(108, 123, 255, 0.1), transparent);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.annonce-card:hover::before {
+  opacity: 1;
+}
+
+.annonce-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+}
+
+/* Image de la carte avec zoom subtil */
+.card-image {
+  position: relative;
+  height: 150px;
+  overflow: hidden;
+}
+
+.card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.annonce-card:hover img {
+  transform: scale(1.03);
+}
+
+/* Badge de temps */
+.time-badge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  backdrop-filter: blur(5px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Bouton like avec animation */
+.like-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: rgba(255, 255, 255, 0.9);
+  border: none;
+  padding: 8px;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.like-btn:hover {
+  transform: scale(1.1);
+  color: #ff4757 !important;
+}
+
+.like-btn.active {
+  color: #ff4757;
+  animation: heartBeat 0.5s ease;
+}
+
+@keyframes heartBeat {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Contenu de la carte */
+.card-content {
+  padding: 15px;
+  background: white;
+  display: flex;
+  flex-direction: column;
+  gap: 5px; /* Espacement uniforme entre les éléments */
+}
+
+/* Prix avec style amélioré */
+.price {
+  color: #6c7bff;
+  font-size: 1.1rem;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+}
+
+.price::before {
+  content: "•";
+  color: #2ecc71;
+  font-size: 1.5rem;
+  line-height: 0;
+}
+
+/* Titre de l'annonce */
+.title {
+  font-size: 1rem;
+  color: #333;
+  line-height: 1.4;
+  font-weight: 600;
+  position: relative;
+  padding-bottom: 8px;
+}
+
+.title::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 30px;
+  height: 2px;
+  background: #6c7bff;
+  border-radius: 2px;
+}
+
+/* Localisation */
+.location {
+  color: #777;
+  font-weight: 500;
+  margin: 10px 0;
+  font-size: 0.85rem;
+}
+
+/* Style pour la catégorie */
+.category {
+  color: #6c7bff;
+  font-size: 0.85rem;
+  font-weight: 500;
+  margin: 8px 0;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.category-label {
+  color: #333;
+  font-weight: 600;
+}
+
+/* Style pour l'état */
+.condition {
+  color: #2ecc71;
+  font-size: 0.85rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.condition-label {
+  color: #333;
+  font-weight: 600;
+}
+
+/* Animation de fade in pour les cartes */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsivité */
+@media (max-width: 1200px) {
+  .annonces {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 900px) {
+  .annonces-container {
+    flex-direction: column;
+  }
+  .sidebar {
+    width: 100%;
+    position: static;
+    border-radius: 10px;
+  }
+  .annonces {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .card-image {
+    height: 120px;
+  }
+  .annonces-container {
+    padding: 10px;
+  }
+  .categories {
+    padding: 10px;
+  }
+}

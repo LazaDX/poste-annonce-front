@@ -1,0 +1,47 @@
+/* src/AuthNavbar.css */
+:root {
+    --primary-color: #ff4d94;
+    --secondary-color: #6f42c1;
+    --shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    --white: #ffffff;
+  }
+  
+  .auth-navbar-wrapper {
+    position: relative;
+  }
+  
+  .auth-navbar {
+    background: var(--white);
+    padding: 1rem 2rem;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    box-shadow: var(--shadow);
+    transition: all 0.3s ease;
+  }
+  
+  .auth-navbar-container {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Centrer le logo */
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+  
+  .logo {
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--secondary-color);
+    letter-spacing: -1px;
+    transition: transform 0.3s ease, color 0.3s ease;
+  }
+  
+  .logo span {
+    color: var(--primary-color);
+  }
+  
+  .logo:hover {
+    transform: scale(1.1);
+  }

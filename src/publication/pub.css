@@ -1,0 +1,433 @@
+/* src/publication/pub.css */
+.pub-page {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+    background: #f5f5f5;
+    font-family: "Arial", sans-serif;
+  }
+  
+  .pub-page h1 {
+    font-size: 1.8rem;
+    color: #333;
+    margin-bottom: 1.5rem;
+  }
+  
+  .pub-form-container {
+    display: flex;
+    gap: 2rem;
+  }
+  
+  .pub-section {
+    background: #fff;
+    padding: 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    margin-bottom: 1.5rem;
+  }
+  
+  .pub-section h2 {
+    font-size: 1.3rem;
+    color: #4a4e6d;
+    margin-bottom: 1rem;
+  }
+  
+  .pub-section p {
+    font-size: 0.9rem;
+    color: #777;
+    margin-bottom: 1rem;
+  }
+  
+  /* Section Ajout de photos */
+  .photo-upload {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    flex-wrap: wrap;
+    max-width: 600px;
+  }
+  
+  .photo-placeholder,
+  .photo-add {
+    width: 100px;
+    height: 100px;
+    border: 2px dashed #ccc;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: border-color 0.3s ease;
+  }
+  
+  .photo-placeholder:hover,
+  .photo-add:hover {
+    border-color: #4a4e6d;
+  }
+  
+  .photo-placeholder i,
+  .photo-add i {
+    font-size: 1.5rem;
+    color: #4a4e6d;
+  }
+  
+  .photo-placeholder span {
+    font-size: 0.85rem;
+    color: #777;
+    margin-top: 0.5rem;
+  }
+  
+  .photo-placeholder.disabled {
+    border-color: #ccc;
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+  
+  .photo-placeholder.disabled:hover {
+    border-color: #ccc;
+  }
+  
+  .photo-preview {
+    position: relative;
+    width: 100px;
+    height: 100px;
+  }
+  
+  .photo-preview img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 10px;
+  }
+  
+  .delete-photo-btn {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background: #ff4757;
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  
+  .delete-photo-btn:hover {
+    background: #e63e4d;
+  }
+  
+  /* Notes sous les photos */
+  .photo-notes {
+    margin-top: 1rem;
+  }
+  
+  .photo-notes p {
+    font-size: 0.9rem;
+    color: #555;
+    background: #f0f0f0;
+    padding: 0.8rem;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .photo-notes i {
+    color: #4a4e6d;
+  }
+  
+  /* Section Conseils */
+  .pub-tips {
+    background: #fff;
+    padding: 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    width: 300px;
+    flex-shrink: 0;
+    flex-grow: 1;
+  }
+  
+  .pub-tips h3 {
+    font-size: 1.1rem;
+    color: #4a4e6d;
+    margin-bottom: 1rem;
+  }
+  
+  .pub-tips ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .pub-tips li {
+    font-size: 0.9rem;
+    color: #777;
+    margin-bottom: 0.5rem;
+    position: relative;
+    padding-left: 1.2rem;
+  }
+  
+  .pub-tips li::before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: #4a4e6d;
+    font-size: 1.2rem;
+  }
+  
+  /* Formulaire */
+  .form-group {
+    margin-bottom: 1.5rem;
+  }
+  
+  .form-group label {
+    display: block;
+    font-size: 0.95rem;
+    color: #4a4e6d;
+    margin-bottom: 0.5rem;
+  }
+  
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 0.95rem;
+    color: #333;
+    transition: border-color 0.3s ease;
+  }
+  
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus {
+    border-color: #4a4e6d;
+    outline: none;
+  }
+  
+  .form-group textarea {
+    height: 120px;
+    resize: vertical;
+  }
+  
+  .form-group small {
+    font-size: 0.85rem;
+    color: #777;
+    display: block;
+    margin-top: 0.3rem;
+  }
+  
+  /* Options de type de bien */
+  .type-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  
+  .type-btn {
+    background: #f5f5f5;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+    color: #333;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .type-btn.active,
+  .type-btn:hover {
+    background: #e0e3ff;
+    border-color: #4a4e6d;
+    color: #4a4e6d;
+  }
+  
+  /* Boutons d'action */
+  .form-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: flex-end;
+  }
+  
+  .cancel-btn,
+  .publish-btn {
+    padding: 0.8rem 1.5rem;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .cancel-btn {
+    background: #4a4e6d;
+    color: #fff;
+  }
+  
+  .cancel-btn:hover {
+    background: #3a3e5d;
+  }
+  
+  .publish-btn {
+    background: #ff4757;
+    color: #fff;
+  }
+  
+  .publish-btn:hover {
+    background: #e63e4d;
+  }
+  
+  /* Mode de paiement */
+  .payment-note {
+    font-size: 0.85rem;
+    color: #555;
+    margin-top: 0.5rem;
+  }
+  
+  .payment-logos {
+    display: flex;
+    gap: 1.5rem;
+    margin-top: 1rem;
+    flex-wrap: wrap;
+  }
+  
+  .payment-logo {
+    font-size: 2.5rem;
+    color: #fff; /* Icônes blanches pour contraste */
+    text-decoration: none;
+    transition: transform 0.3s ease, background 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .payment-logo:hover {
+    transform: scale(1.1);
+  }
+  
+  .paypal {
+    background: #0070ba;
+  }
+  
+  .paypal:hover {
+    background: #005ea6; /* Bleu légèrement plus foncé pour PayPal */
+  }
+  
+  .bitcoin {
+    background: #f7931a;
+  }
+  
+  .bitcoin:hover {
+    background: #000000; /* Noir pour Bitcoin */
+  }
+  
+  .mvola {
+    background: #00aaff;
+  }
+  
+  .mvola:hover {
+    background: #0088cc; /* Bleu plus foncé pour Mvola */
+  }
+  
+  .orangemoney {
+    background: #ff6200;
+  }
+  
+  .orangemoney:hover {
+    background: #cc4e00; /* Orange plus foncé pour Orange Money */
+  }
+  
+  .airtel {
+    background: #ff0000;
+  }
+  
+  .airtel:hover {
+    background: #cc0000; /* Rouge plus foncé pour Airtel */
+  }
+  
+  .wave {
+    background: #00c853;
+  }
+  
+  .wave:hover {
+    background: #009624; /* Vert plus foncé pour Wave */
+  }
+  
+  /* Responsivité */
+  @media (max-width: 900px) {
+    .pub-form-container {
+      flex-direction: column;
+    }
+  
+    .pub-tips {
+      width: 100%;
+      max-height: none;
+    }
+  
+    .photo-notes {
+      flex-direction: column;
+    }
+  
+    .payment-logos {
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+    }
+  
+    .payment-logo {
+      font-size: 2rem;
+      width: 40px;
+      height: 40px;
+    }
+  }
+  
+  @media (max-width: 600px) {
+    .pub-page {
+      padding: 1rem;
+    }
+  
+    .pub-section h2 {
+      font-size: 1.2rem;
+    }
+  
+    .type-btn {
+      font-size: 0.85rem;
+      padding: 0.5rem;
+    }
+  
+    .photo-upload {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  
+    .photo-placeholder,
+    .photo-add,
+    .photo-preview img {
+      width: 80px;
+      height: 80px;
+    }
+  
+    .photo-preview .delete-photo-btn {
+      width: 15px;
+      height: 15px;
+      font-size: 0.7rem;
+    }
+  
+    .payment-logo {
+      font-size: 1.5rem;
+      width: 30px;
+      height: 30px;
+    }
+  }
