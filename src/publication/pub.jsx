@@ -218,7 +218,7 @@ const Pub = ({ annonceId }) => {
         title: "Succès",
         text: "Votre annonce et vos images ont été publiées avec succès !",
       });
-      navigate("/annonces");
+      navigate("/user/annonces");
 
     } catch (error) {
       console.error("Erreur lors de la création de l'annonce:", error);
@@ -232,7 +232,7 @@ const Pub = ({ annonceId }) => {
 
   // Annulation et redirection
   const handleCancel = () => {
-    navigate("/annonces");
+    navigate("/user/annonces");
   };
 
   // Titre de la description selon la catégorie
@@ -268,7 +268,7 @@ const Pub = ({ annonceId }) => {
   // Affichage des champs spécifiques selon la catégorie
   const renderSpecificFields = () => {
     switch (formData.category_id) {
-      case "1": // Villas
+      case "11": // Villas
         return (
           <>
             <div className="form-group">
@@ -293,8 +293,8 @@ const Pub = ({ annonceId }) => {
             </div>
           </>
         );
-      case "2": // Terrains
-      case "8": // Terrains agricoles
+      case "10": // Terrains
+      case "4": // Terrains agricoles
         return (
           <>
             <div className="form-group">
@@ -321,8 +321,8 @@ const Pub = ({ annonceId }) => {
             )}
           </>
         );
-      case "3": // Appartements
-      case "9": // Appartements meublés
+      case "9": // Appartements
+      case "3": // Appartements meublés
         return (
           <>
             <div className="form-group">
@@ -359,7 +359,7 @@ const Pub = ({ annonceId }) => {
             )}
           </>
         );
-      case "4": // Immeubles
+      case "8": // Immeubles
         return (
           <>
             <div className="form-group">
@@ -384,7 +384,7 @@ const Pub = ({ annonceId }) => {
             </div>
           </>
         );
-      case "5": // Bureaux & Commerces
+      case "7": // Bureaux & Commerces
         return (
           <>
             <div className="form-group">
@@ -434,7 +434,7 @@ const Pub = ({ annonceId }) => {
             </div>
           </>
         );
-      case "7": // Chambres
+      case "5": // Chambres
         return (
           <>
             <div className="form-group">
@@ -459,7 +459,7 @@ const Pub = ({ annonceId }) => {
             </div>
           </>
         );
-      case "10": // Fermes & Vergers
+      case "2": // Fermes & Vergers
         return (
           <>
             <div className="form-group">
@@ -484,7 +484,7 @@ const Pub = ({ annonceId }) => {
             </div>
           </>
         );
-      case "11": // Voitures
+      case "1": // Voitures
         return (
           <>
             <div className="form-group">
@@ -677,17 +677,17 @@ const Pub = ({ annonceId }) => {
               <label>Catégorie*</label>
               <div className="type-options">
                 {[
-                  { id: "11", name: "Villas" },
-                  { id: "10", name: "Terrains" },
-                  { id: "9", name: "Appartements" },
-                  { id: "8", name: "Immeubles" },
-                  { id: "7", name: "Bureaux & Commerces" },
-                  { id: "6", name: "Maisons de vacances" },
-                  { id: "5", name: "Chambres" },
-                  { id: "4", name: "Terrains agricoles" },
-                  { id: "3", name: "Appartements meublés" },
-                  { id: "2", name: "Fermes & Vergers" },
                   { id: "1", name: "Voitures" },
+                  { id: "2", name: "Fermes & Vergers" },
+                  { id: "3", name: "Appartements meublés" },
+                  { id: "4", name: "Terrains agricoles" },
+                  { id: "5", name: "Chambres" },
+                  { id: "6", name: "Maisons de vacances" },
+                  { id: "7", name: "Bureaux & Commerces" },
+                  { id: "8", name: "Immeubles" },
+                  { id: "9", name: "Appartements" },
+                  { id: "10", name: "Terrains" },
+                  { id: "11", name: "Villas" },
                 ].map((category) => (
                   <button
                     key={category.id}

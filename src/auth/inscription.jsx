@@ -1,13 +1,17 @@
 // src/auth/inscription.jsx
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import "./inscription.css"; // Vérifie que ce chemin est correct
+import axios from "axios";
+import Swal from "sweetalert2";
+import "./inscription.css";
 
 const Inscription = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    name: "",
+    first_name: "",
+    last_name: "",
     email: "",
+    contact: "",
     password: "",
     confirmPassword: "",
   });
@@ -17,19 +21,48 @@ const Inscription = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!formData.name || !formData.email || !formData.password || !formData.confirmPassword) {
+
+    if (!formData.first_name || !formData.last_name || !formData.email ||
+      !formData.contact || !formData.password || !formData.confirmPassword) {
       setError("Veuillez remplir tous les champs.");
       return;
     }
+
     if (formData.password !== formData.confirmPassword) {
       setError("Les mots de passe ne correspondent pas.");
       return;
     }
-    setError("");
-    alert("Inscription réussie ! (Simulation)");
-    navigate("/login");
+
+    try {
+      const response = await axios.post("http://localhost:8000/api/users", {
+        first_name: formData.first_name,
+        last_name: formData.last_name,
+        email: formData.email,
+        contact: formData.contact,
+        password: formData.password
+      });
+
+      if (response.status === 201) {
+        Swal.fire({
+          title: "Inscription réussie !",
+          text: "Votre compte a été créé avec succès",
+          icon: "success",
+          confirmButtonText: "OK"
+        }).then(() => {
+          navigate("/");
+        });
+      }
+    } catch (error) {
+      const errorMessage = error.response?.data?.message || "Erreur lors de l'inscription";
+      Swal.fire({
+        title: "Erreur",
+        text: errorMessage,
+        icon: "error",
+        confirmButtonText: "OK"
+      });
+    }
   };
 
   return (
@@ -38,14 +71,26 @@ const Inscription = () => {
         <h2 className="inscription-title">Inscription</h2>
         {error && <p className="inscription-error">{error}</p>}
         <form onSubmit={handleSubmit} className="inscription-form">
+
           <div className="form-group">
-            <label>Nom complet</label>
+            <label>Nom</label>
             <input
               type="text"
-              name="name"
-              value={formData.name}
+              name="last_name"
+              value={formData.last_name}
               onChange={handleChange}
               placeholder="Entrez votre nom"
+              required
+            />
+          </div>
+          <div className="form-group">
+            <label>Prénom</label>
+            <input
+              type="text"
+              name="first_name"
+              value={formData.first_name}
+              onChange={handleChange}
+              placeholder="Entrez votre prénom"
               required
             />
           </div>
@@ -61,18 +106,29 @@ const Inscription = () => {
             />
           </div>
           <div className="form-group">
+            <label>Téléphone</label>
+            <input
+              type="text"
+              name="contact"
+              value={formData.contact}
+              onChange={handleChange}
+              placeholder="Entrez votre numéro de téléphone"
+              required
+            />
+          </div>
+          <div className="form-group">
             <label>Mot de passe</label>
             <input
               type="password"
               name="password"
               value={formData.password}
               onChange={handleChange}
-              placeholder="Entrez votre mot de passe"
+              placeholder="Créez un mot de passe"
               required
             />
           </div>
           <div className="form-group">
-            <label>Confirmer mot de passe</label>
+            <label>Confirmer le mot de passe</label>
             <input
               type="password"
               name="confirmPassword"

@@ -23,6 +23,10 @@ export default function Navbar() {
     navigate("/login");
   };
 
+  const handleProfilClick = () => {
+    navigate("/user/profil");
+  };
+
   // Données des catégories avec sous-catégories
   const categories = [
     {
@@ -117,7 +121,7 @@ export default function Navbar() {
               <i className="fas fa-heart"></i>
             </span>
             {/* Icône Utilisateur avec navigation vers login */}
-            <span className="icon" onClick={handleLoginClick}>
+            <span className="icon" onClick={handleProfilClick}>
               <i className="fas fa-user"></i>
             </span>
             {/* Icône Chatbot avec navigation */}

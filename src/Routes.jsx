@@ -9,6 +9,7 @@ import Informations from "./informations/informations";
 import Pub from "./publication/pub";
 import Chat from "./chat/chat";
 import Bannier from "./bannier/bannier";
+import Profil from "./profil/profil";
 
 const AppRoutes = () => {
     return (
@@ -36,6 +37,7 @@ const AppRoutes = () => {
                         </>
                     }
                 />
+                <Route path="profil" element={<Profil />} />
                 <Route path="informations/:id" element={<Informations />} />
                 <Route path="publication" element={<Pub />} />
                 <Route path="chat" element={<Chat />} />
