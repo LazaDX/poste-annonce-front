@@ -36,9 +36,13 @@ const Login = () => {
 
       // Récupérer et stocker l'ID de l'utilisateur
       // On vérifie si l'ID est dans response.data.user ou directement dans response.data
+      const adminId = response.data.admin?.id || response.data.id;
       const userId = response.data.user?.id || response.data.id;
+
       if (userId) {
         localStorage.setItem("userId", userId);
+      } else if (adminId) {
+        localStorage.setItem("adminId", adminId);
       } else {
         console.warn("ID utilisateur non trouvé dans la réponse");
       }
@@ -46,12 +50,14 @@ const Login = () => {
       // Stocker le type d'utilisateur
       if (response.data.admin) {
         localStorage.setItem("userType", "admin");
+        navigate('/admin/dashboard')
       } else {
         localStorage.setItem("userType", "user");
+        navigate('/user/annonces');
       }
 
       // Rediriger vers /user/annonces quel que soit le type d'utilisateur
-      navigate('/user/annonces');
+
 
     } catch (err) {
       console.error("Erreur lors de la connexion :", err);

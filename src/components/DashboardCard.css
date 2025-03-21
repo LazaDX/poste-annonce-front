@@ -1,0 +1,30 @@
+/* src/components/DashboardCard.css */
+.dashboard-card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.5rem;
+  border-radius: 10px;
+  box-shadow: var(--shadow);
+  color: #fff;
+  transition: transform 0.3s ease;
+}
+
+.dashboard-card:hover {
+  transform: translateY(-5px);
+}
+
+.card-icon {
+  font-size: 2rem;
+}
+
+.card-content h3 {
+  font-size: 1.2rem;
+  margin: 0;
+}
+
+.card-content p {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0;
+}

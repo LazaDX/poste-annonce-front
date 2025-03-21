@@ -1,4 +1,4 @@
-import { Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes, useLocation, Navigate, Outlet } from "react-router-dom";
 import Dashboard from "../pages/Dashboard";
 
 
@@ -6,7 +6,7 @@ function AdminLayout() {
     const isAuthenticated = localStorage.getItem("isAuthenticated");
 
     if (!isAuthenticated) {
-        return <Navigate to="/login" />;
+        return <Navigate to="" />;
     }
 
     return (

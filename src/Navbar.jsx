@@ -11,6 +11,9 @@ export default function Navbar() {
     navigate("/user/publication");
   };
 
+  const handleFavoris = () => {
+    navigate("/user/favoris");
+  }
   const handleLogoClick = () => {
     navigate("/user/annonces");
   };
@@ -117,7 +120,7 @@ export default function Navbar() {
 
           {/* Icônes et bouton */}
           <div className="nav-icons">
-            <span className="icon">
+            <span className="icon" onClick={handleFavoris}>
               <i className="fas fa-heart"></i>
             </span>
             {/* Icône Utilisateur avec navigation vers login */}

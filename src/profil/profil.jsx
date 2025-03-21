@@ -67,10 +67,11 @@ const Profil = () => {
     if (profileImage) {
       formData.append("profile_image", profileImage);
     }
-
     try {
       const response = await axios.put(`http://localhost:8000/api/users/${userId}`, formData, {
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
         withCredentials: true
       });
       if (response.status === 200) {
@@ -261,8 +262,8 @@ const Profil = () => {
             Enregistrer
           </button>
         </form>
-      </div>
-    </div>
+      </div >
+    </div >
   );
 };
 

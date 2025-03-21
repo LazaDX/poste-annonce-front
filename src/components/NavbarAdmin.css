@@ -1,0 +1,131 @@
+/* src/components/Navbar.css */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background: var(--card-bg);
+  box-shadow: var(--shadow);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.navbar-left h3 {
+  margin: 0;
+  font-size: 1.5rem;
+  color: var(--secondary-color);
+}
+
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.navbar-icon {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: var(--text-color);
+  cursor: pointer;
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+.navbar-icon:hover {
+  color: var(--primary-color);
+}
+
+/* Badge pour les notifications */
+.navbar-icon .fas.fa-bell::after {
+  content: "3";
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background: #e74c3c;
+  color: #fff;
+  font-size: 0.7rem;
+  padding: 2px 5px;
+  border-radius: 50%;
+  font-family: sans-serif;
+}
+
+.profile-menu {
+  position: relative;
+}
+
+.profile-dropdown {
+  position: absolute;
+  top: 2.5rem;
+  right: 0;
+  background: var(--card-bg);
+  box-shadow: var(--shadow);
+  border-radius: 8px;
+  overflow: hidden;
+  z-index: 1000;
+}
+
+.profile-dropdown button {
+  display: block;
+  width: 150px;
+  padding: 0.8rem;
+  background: none;
+  border: none;
+  text-align: left;
+  color: var(--text-color);
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.profile-dropdown button:hover {
+  background: var(--table-hover-bg);
+}
+
+/* Style pour le badge des notifications */
+.notification-badge {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background: #e74c3c;
+  color: #fff;
+  font-size: 0.7rem;
+  padding: 2px 5px;
+  border-radius: 50%;
+  font-family: sans-serif;
+  min-width: 16px;
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    padding: 1rem;
+  }
+
+  .navbar-left h3 {
+    font-size: 1.2rem;
+  }
+
+  .navbar-icon {
+    font-size: 1.2rem;
+  }
+
+  .navbar-icon .fas.fa-bell::after {
+    font-size: 0.6rem;
+    padding: 1px 4px;
+  }
+
+  .profile-dropdown {
+    width: 120px;
+  }
+
+  .profile-dropdown button {
+    padding: 0.5rem;
+    font-size: 0.9rem;
+  }
+
+  .notification-badge {
+    font-size: 0.6rem;
+    padding: 1px 4px;
+  }
+}

@@ -17,31 +17,12 @@ function UserLayout() {
 
     if (!isAuthenticated) {
 
-        return <Navigate to="/login" />;
+        return <Navigate to="/" />;
     }
     return (
         <>
             <div className="app-container">
                 <Navbar />
-                {/* <Routes>
-                    <Route
-                        path="/"
-                        element={
-                            <>
-                                <Bannier />
-                                <Annonces />
-                            </>
-                        }
-                    />
-                    <Route path="/" element={<Navigate to="annonces" />} />
-                    <Route path="/annonces" element={<Annonces />} />
-                    <Route path="/informations/:id" element={<Informations />} />
-                    <Route path="/publication" element={<Pub />} />
-                    <Route path="/chat" element={<Chat />} />
-                    <Route path="/login" element={<Login />} />
-                    <Route path="/inscription" element={<Inscription />} />
-                </Routes> */}
-
                 <Outlet />
                 <Footer />
             </div>

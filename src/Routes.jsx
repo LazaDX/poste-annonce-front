@@ -10,6 +10,7 @@ import Pub from "./publication/pub";
 import Chat from "./chat/chat";
 import Bannier from "./bannier/bannier";
 import Profil from "./profil/profil";
+import Favoris from "./favoris/favoris";
 
 const AppRoutes = () => {
     return (
@@ -38,6 +39,7 @@ const AppRoutes = () => {
                     }
                 />
                 <Route path="profil" element={<Profil />} />
+                <Route path="favoris" element={<Favoris />} />
                 <Route path="informations/:id" element={<Informations />} />
                 <Route path="publication" element={<Pub />} />
                 <Route path="chat" element={<Chat />} />
@@ -54,7 +56,25 @@ const AppRoutes = () => {
             >
                 {/* Ajouter les sous-routes admin ici si nécessaire */}
                 <Route index element={<Navigate to="dashboard" />} />
-                <Route path="dashboard" element={<div>Tableau de bord admin</div>} /> {/* Placeholder */}
+                {/* <Route
+                    path="/"
+                    element={
+                        <ErrorBoundary>
+                            <Dashboard />
+                        </ErrorBoundary>
+                    }
+                />
+                <Route path="/users" element={<Users />} />
+                <Route path="/users/:id" element={<UserDetails />} />
+                <Route path="/transactions" element={<Transactions />} />
+                <Route path="/transactions/:id" element={<TransactionDetails />} />
+                <Route path="/annonces" element={<Annonces />} />
+                <Route path="/annonces/:id" element={<AnnonceDetails />} />
+                <Route path="/settings" element={<Settings />} />
+                <Route path="/notifications" element={<Notifications />} />
+                <Route path="/profile/view" element={<ProfileView />} />
+                <Route path="/profile/edit" element={<ProfileEdit />} />
+                <Route path="/add-admin" element={<AddAdmin />} /> */}
             </Route>
         </Routes>
     );
