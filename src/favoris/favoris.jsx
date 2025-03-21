@@ -1,17 +1,16 @@
-// src/favoris/favoris.jsx
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./favoris.css";
 
 const Favoris = () => {
-  // Etats et navigation
+  // États et navigation
   const [activeTab, setActiveTab] = useState("favoris");
   const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState("");
   const [showLoadMore, setShowLoadMore] = useState(true);
 
-  // Etats pour données dynamiques
+  // États pour données dynamiques
   const [savedAnnonces, setSavedAnnonces] = useState([]);
   const [favoriteItems, setFavoriteItems] = useState([]);
   const [alerts, setAlerts] = useState([]);
@@ -43,24 +42,6 @@ const Favoris = () => {
     }
   }, [userId]);
 
-  // Fonction pour calculer le nombre de jours d'inscription
-  const getMembershipDays = (createdAt) => {
-    const createdDate = new Date(createdAt);
-    const currentDate = new Date();
-    const diffTime = Math.abs(currentDate - createdDate);
-    const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
-    return diffDays;
-  };
-
-  const formatDate = (dateString) => {
-    if (!dateString) return "";
-    const date = new Date(dateString);
-    const day = String(date.getDate()).padStart(2, "0");
-    const month = String(date.getMonth() + 1).padStart(2, "0");
-    const year = date.getFullYear();
-    return `${day}/${month}/${year}`;
-  };
-
   // Récupération des annonces publiées par l'utilisateur connecté
   useEffect(() => {
     if (userId) {
@@ -68,25 +49,29 @@ const Favoris = () => {
         .get(`http://localhost:8000/api/posts/`, { withCredentials: true })
         .then((response) => {
           const allPosts = response.data;
-          // Filtrer les posts pour ne conserver que ceux dont user_id correspond à l'utilisateur connecté
           const userPosts = allPosts.filter(
-            (post) => post.user_id === parseInt(userId)
+            (post) => post.user_id === parseInt(userId, 10)
           );
           setSavedAnnonces(userPosts);
         })
-        .catch((error) => {
-          console.error("Erreur lors de la récupération des annonces", error);
-        });
+        .catch((error) =>
+          console.error("Erreur lors de la récupération des annonces", error)
+        );
+    }
+  }, [userId]);
 
-      // Exemple de récupération des favoris de l'utilisateur (à adapter si besoin)
-      // axios
-      //   .get(`http://localhost:8000/api/favorites/${userId}`, { withCredentials: true })
-      //   .then((response) => {
-      //     setFavoriteItems(response.data);
-      //   })
-      //   .catch((error) => {
-      //     console.error("Erreur lors de la récupération des favoris", error);
-      //   });
+  // Récupération des favoris de l'utilisateur connecté
+  useEffect(() => {
+    if (userId) {
+      axios
+        .get("http://localhost:8000/api/user/favorites/posts", { withCredentials: true })
+        .then((response) => {
+          const posts = response.data.posts || [];
+          setFavoriteItems(posts);
+        })
+        .catch((error) =>
+          console.error("Erreur lors de la récupération des favoris", error)
+        );
     }
   }, [userId]);
 
@@ -116,18 +101,19 @@ const Favoris = () => {
           .then(() => {
             setSavedAnnonces(savedAnnonces.filter((item) => item.id !== id));
           })
-          .catch((error) => {
-            console.error("Erreur lors de la suppression de l'annonce", error);
-          });
+          .catch((error) =>
+            console.error("Erreur lors de la suppression de l'annonce", error)
+          );
       } else if (type === "Favori") {
+        // Supprimer le favori en utilisant l'ID du post
         axios
-          .delete(`http://localhost:8000/api/favorites/${id}`, { withCredentials: true })
+          .delete(`http://localhost:8000/api/favorites/post/${id}`, { withCredentials: true })
           .then(() => {
             setFavoriteItems(favoriteItems.filter((item) => item.id !== id));
           })
-          .catch((error) => {
-            console.error("Erreur lors de la suppression du favori", error);
-          });
+          .catch((error) =>
+            console.error("Erreur lors de la suppression du favori", error)
+          );
       }
     }
   };
@@ -153,6 +139,25 @@ const Favoris = () => {
   const filteredAlerts = alerts.filter((alert) =>
     alert.keyword.toLowerCase().includes(searchTerm.toLowerCase())
   );
+
+  // Fonction pour formater une date
+  const formatDate = (dateString) => {
+    if (!dateString) return "";
+    const date = new Date(dateString);
+    const day = String(date.getDate()).padStart(2, "0");
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const year = date.getFullYear();
+    return `${day}/${month}/${year}`;
+  };
+
+  // Fonction pour calculer le nombre de jours d'inscription
+  const getMembershipDays = (createdAt) => {
+    const createdDate = new Date(createdAt);
+    const currentDate = new Date();
+    const diffTime = Math.abs(currentDate - createdDate);
+    const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+    return diffDays;
+  };
 
   return (
     <div className="favoris-container">
@@ -214,13 +219,6 @@ const Favoris = () => {
           >
             <i className="fas fa-heart"></i> Favoris
           </button>
-          {/* Bloc Alertes désactivé pour l'instant */}
-          {/* <button
-            className={`tab ${activeTab === "alertes" ? "active" : ""}`}
-            onClick={() => setActiveTab("alertes")}
-          >
-            <i className="fas fa-bell"></i> Alertes
-          </button> */}
         </div>
       </div>
 
@@ -230,23 +228,17 @@ const Favoris = () => {
           {filteredAnnonces.length > 0 ? (
             <div className="items-list">
               {filteredAnnonces.map((item) => {
-                // Récupérer le chemin relatif de la première image de la relation images
                 const imageRelativePath =
                   item.images && item.images.length > 0
                     ? item.images[0].image || item.images[0].image_path
                     : null;
-                // Construction de l'URL de l'image
                 const imageUrl = imageRelativePath
                   ? baseUrl + imageRelativePath
                   : defaultImage;
 
                 return (
                   <div key={item.id} className="item-card">
-                    <img
-                      src={imageUrl}
-                      alt={item.title}
-                      className="item-image"
-                    />
+                    <img src={imageUrl} alt={item.title} className="item-image" />
                     <div className="item-details">
                       <h3 onClick={() => handleItemClick(item.id)}>
                         {item.title}
@@ -254,7 +246,7 @@ const Favoris = () => {
                       <p className="item-price">{item.title_price}</p>
                       <p className="item-location">{item.location}</p>
                       <p className="item-description">{item.description}</p>
-                      <p className="item-date"> Créer le {formatDate(item.created_at)}</p>
+                      <p className="item-date">Créé le {formatDate(item.created_at)}</p>
                     </div>
                     <button
                       className="remove-btn"
@@ -275,51 +267,47 @@ const Favoris = () => {
             <div className="content-placeholder">
               <i className="fas fa-bullhorn placeholder-icon"></i>
               <p>Vous n’avez aucune annonce publiée.</p>
-              <button
-                className="action-btn"
-                onClick={() => navigate("/publication")}
-              >
+              <button className="action-btn" onClick={() => navigate("/publication")}>
                 Publier une annonce
               </button>
             </div>
           )}
         </div>
 
-        {/* Bloc Favoris (désactivé pour l'instant) */}
-        {/* <div className={`tab-panel ${activeTab === "favoris" ? "active" : ""}`}>
+        {/* Bloc Favoris */}
+        <div className={`tab-panel ${activeTab === "favoris" ? "active" : ""}`}>
           {filteredFavorites.length > 0 ? (
             <div className="items-list">
-              {filteredFavorites.map((item) => (
-                <div key={item.id} className="item-card">
-                  <img
-                    src={item.image}
-                    alt={item.title}
-                    className="item-image"
-                    onClick={() => handleImageClick(item.image)}
-                  />
-                  <div className="item-details">
-                    <h3 onClick={() => handleItemClick(item.id)}>
-                      {item.title}{" "}
-                      {item.status === "Nouveau" && (
-                        <span className="status-badge new">Nouveau</span>
-                      )}
-                      {item.status === "Urgent" && (
-                        <span className="status-badge urgent">Urgent</span>
-                      )}
-                    </h3>
-                    <p className="item-price">{item.price}</p>
-                    <p className="item-location">{item.location}</p>
-                    <p className="item-description">{item.description}</p>
-                    <p className="item-date">{item.date}</p>
+              {filteredFavorites.map((item) => {
+                const imageRelativePath =
+                  item.images && item.images.length > 0
+                    ? item.images[0].image || item.images[0].image_path
+                    : null;
+                const imageUrl = imageRelativePath
+                  ? baseUrl + imageRelativePath
+                  : defaultImage;
+
+                return (
+                  <div key={item.id} className="item-card">
+                    <img src={imageUrl} alt={item.title} className="item-image" />
+                    <div className="item-details">
+                      <h3 onClick={() => handleItemClick(item.id)}>
+                        {item.title}
+                      </h3>
+                      <p className="item-price">{item.title_price}</p>
+                      <p className="item-location">{item.location}</p>
+                      <p className="item-description">{item.description}</p>
+                      <p className="item-date">Créé le {formatDate(item.created_at)}</p>
+                    </div>
+                    <button
+                      className="remove-btn"
+                      onClick={() => removeItem(item.id, "Favori")}
+                    >
+                      <i className="fas fa-trash"></i>
+                    </button>
                   </div>
-                  <button
-                    className="remove-btn"
-                    onClick={() => removeItem(item.id, "Favori")}
-                  >
-                    <i className="fas fa-trash"></i>
-                  </button>
-                </div>
-              ))}
+                );
+              })}
               {showLoadMore && (
                 <button className="load-more-btn" onClick={loadMore}>
                   Charger plus
@@ -335,7 +323,7 @@ const Favoris = () => {
               </button>
             </div>
           )}
-        </div> */}
+        </div>
       </div>
 
       {/* Recommandations */}

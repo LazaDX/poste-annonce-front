@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./Annonces.css";
 import image2 from "./assets/i.jpg";
+import Swal from "sweetalert2";
 
 const baseUrl = "http://localhost:8000/";
 
@@ -32,8 +33,65 @@ const Annonces = () => {
       });
   }, []);
 
-  // Gestion du like
+  useEffect(() => {
+    const isAuthenticated = localStorage.getItem("isAuthenticated");
+    if (isAuthenticated) {
+      axios
+        .get("http://localhost:8000/api/user/favorites/posts", {
+          withCredentials: true,
+          headers: { Accept: "application/json" },
+        })
+        .then((response) => {
+          const posts = response.data.posts || [];
+          const favoriteIds = new Set(posts.map((post) => post.id));
+          setLikes(favoriteIds);
+        })
+        .catch((error) => {
+          console.error("Erreur lors de la récupération des favoris :", error);
+        });
+    }
+  }, []);
+
+  const handleFavoriteClick = (postId) => {
+    Swal.fire({
+      title: "Ajouter aux favoris ?",
+      text: "Voulez-vous vraiment ajouter cet article à vos favoris ?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Oui, ajouter !",
+      cancelButtonText: "Non, annuler",
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        toggleLike(postId);
+        const userId = localStorage.getItem("userId");
+        if (!userId) {
+          Swal.fire("Erreur", "Vous devez être connecté pour ajouter un favori", "error");
+          return;
+        }
+        axios
+          .post("http://localhost:8000/api/favorites", {
+            user_id: parseInt(userId, 10),
+            post_id: postId,
+          }, { WithCredentials: true })
+          .then(() => {
+            Swal.fire("Favori ajouté !", "L'article a été ajouté à vos favoris.", "success");
+          })
+          .catch((error) => {
+            console.error("Erreur lors de l'ajout du favori :", error);
+            Swal.fire("Erreur", "Une erreur est survenue lors de l'ajout du favori", "error");
+          });
+      }
+      // Si l'utilisateur annule, on ne fait rien, et la classe "active" n'est pas activée
+    });
+  };
+
+
   const toggleLike = (id) => {
+
+    // handleAddFavorite(id);
+
     const newLikes = new Set(likes);
     if (newLikes.has(id)) {
       newLikes.delete(id);
@@ -124,9 +182,8 @@ const Annonces = () => {
         {annonces.map((annonce) => {
           const imageRelativePath =
             annonce.images && annonce.images.length > 0
-              ? annonce.images[0].image // ou annonce.images[0].image_path
+              ? annonce.images[0].image
               : null;
-          // Si c'est un chemin relatif, on préfixe avec l'URL de base.
           const imageUrl = imageRelativePath ? baseUrl + imageRelativePath : image2;
           const categoryName = annonce.category ? annonce.category.name : "Non catégorisé";
 
@@ -141,7 +198,10 @@ const Annonces = () => {
                 />
                 <button
                   className={`like-btn ${likes.has(annonce.id) ? "active" : ""}`}
-                  onClick={() => toggleLike(annonce.id)}
+                  onClick={() => {
+                    // toggleLike(annonce.id)
+                    handleFavoriteClick(annonce.id)
+                  }}
                 >
                   <i className="fas fa-heart"></i>
                 </button>
